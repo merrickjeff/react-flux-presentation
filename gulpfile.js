@@ -1,7 +1,7 @@
 "use strict";
 
 var gulp = require('gulp');
-var connect = require('gulp-connect'); // Runs a local dev server
+var connect = require('gulp-connect'); // Runs a local dev server, supports live reload
 var open = require('gulp-open'); // Open a URL in a web browser
 var browserify = require('browserify'); // Bundles JS
 var reactify = require('reactify'); // Transforms React JSX to JS
@@ -14,6 +14,7 @@ var config = {
 	paths: {
 		html: './src/*.html',
 		js: './src/**/*.js', 
+		jsx: './src/components/**/*.jsx',
 		css: [
 			'node_modules/bootstrap/dist/css/bootstrap.min.css',
 			'node_modules/bootstrap/dist/css/bootstrap-theme.min.css'
@@ -59,6 +60,7 @@ gulp.task('css', function(){
 gulp.task('watch', function(){
 	gulp.watch(config.paths.html, ['html']);
 	gulp.watch(config.paths.js, ['js']);
+	gulp.watch(config.paths.jsx, ['js']);
 });
 
 gulp.task('default', ['html', 'js', 'css', 'open', 'watch']);

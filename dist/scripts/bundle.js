@@ -30349,12 +30349,36 @@ module.exports = require('./lib/React');
 
 var React = require('react');
 
+var Contact = React.createClass({displayName: "Contact",
+	render: function(){
+		return (
+			React.createElement("div", {style: {backgroundColor: "lightblue"}}, 
+				React.createElement("h2", null, "This is the Contact component"), 
+				React.createElement("p", null, "This is preformatted"), 
+				React.createElement("a", {href: "/index"}, "index"), 
+				React.createElement("br", null), 
+				"Click below to send us an email:", React.createElement("br", null), 
+				React.createElement("a", {href: "mailto:help@me.com?Subject=I%20Need%20Help"}, "Click Here!")
+			)
+
+			);
+	}
+
+});
+
+module.exports = Contact;
+
+},{"react":170}],172:[function(require,module,exports){
+"use strict";
+
+var React = require('react');
+
 var Main = React.createClass({displayName: "Main",
 	render: function(){
 		return (
 			React.createElement("div", {className: "jumbotron"}, 
 				React.createElement("h1", null, "This is the Main component"), 
-				React.createElement("p", null, "What do you think? This is the main component p content")
+				React.createElement("p", null, "This is a p tag in the main react component.")
 			)
 
 			);
@@ -30364,7 +30388,7 @@ var Main = React.createClass({displayName: "Main",
 
 module.exports = Main;
 
-},{"react":170}],172:[function(require,module,exports){
+},{"react":170}],173:[function(require,module,exports){
 "use strict";
 
 var $, jQuery;
@@ -30372,14 +30396,17 @@ $ = jQuery = require('jquery');
 var React = require('react');
 var ReactDOM = require('react-dom');
 var Main = require('./components/main.jsx');
+var Contact = require('./components/contact/contactus.jsx');
 
 var App = console.log('This function is wired up to log from main.js');
 var App = function(){
-	let stringggg = 'Dis function is wired up to log from main.js';
+	var stringggg = 'Dis function ist wirrd up to log from main.js';
 	console.log(stringggg);
 
 }();
 
 
 ReactDOM.render(React.createElement(Main, null), document.getElementById('app'));
-},{"./components/main.jsx":171,"jquery":2,"react":170,"react-dom":3}]},{},[172]);
+ReactDOM.render(React.createElement(Contact, null), document.getElementById('app2'));
+
+},{"./components/contact/contactus.jsx":171,"./components/main.jsx":172,"jquery":2,"react":170,"react-dom":3}]},{},[173]);
