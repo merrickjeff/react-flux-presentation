@@ -11,6 +11,7 @@ Deploy
 packages
 nuget
 bundle
+bundle.js
 .bundle
 *.ncrunchsolution
 logs

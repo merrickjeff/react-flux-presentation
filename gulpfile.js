@@ -12,15 +12,15 @@ var config = {
 	port: 9005,
 	devBaseURL: 'http://localhost',
 	paths: {
-		html: './src/*.html',
-		js: './src/**/*.js', 
-		jsx: './src/components/**/*.jsx',
+		html: 'src/*.html',
+		js: 'src/**/*.js', 
+		jsx: 'src/components/**/*.jsx',
 		css: [
 			'node_modules/bootstrap/dist/css/bootstrap.min.css',
 			'node_modules/bootstrap/dist/css/bootstrap-theme.min.css'
 		],
-		dist: './dist',
-		mainJs: './src/main.js'
+		dist: 'dist',
+		mainJs: 'src/main.js'
 	}
 };
 

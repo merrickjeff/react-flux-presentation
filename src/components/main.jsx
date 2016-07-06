@@ -7,7 +7,7 @@ var Main = React.createClass({
 		return (
 			<div className="jumbotron">
 				<h1>This is the Main component</h1>
-				<p>This is a p tag in the main react component.</p>
+				<p>I&apos;ve got a lovely bunch of coconuts</p>
 			</div>
 
 			);

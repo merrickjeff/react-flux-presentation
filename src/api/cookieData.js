@@ -1,3 +1,5 @@
+"use strict";
+
 module.exports = {
 	cookies:
 	[
@@ -17,4 +19,4 @@ module.exports = {
 			size: 'Medium'
 		},
 	]
-}
+};
