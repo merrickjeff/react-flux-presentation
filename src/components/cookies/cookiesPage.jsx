@@ -28,8 +28,10 @@ var Cookie = React.createClass({
 				<h2>Here are the cookies we know about</h2>
 				<table className="table">
 					<thead>
-						<th>Flavor</th>
-						<th>Size</th>
+						<tr>
+							<th>Flavor</th>
+							<th>Size</th>
+						</tr>
 					</thead>
 					<tbody>
 						{this.state.cookies.map(createCookieRow, this)}
