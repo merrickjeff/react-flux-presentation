@@ -8,9 +8,9 @@ var Main = require('./components/main.jsx');
 var Contact = require('./components/contact/contactUs.jsx');
 var Cookies = require('./components/cookies/cookiesPage.jsx');
 
-var App = console.log('This function is wired up to log from main.js');
+var App = console.log('This function is wired up to log from bootstrap.js');
 var App = function(){
-	var stringggg = 'Dis function ist wirrd up to log from main.js';
+	var stringggg = 'Dis function ist wirrd up to log from bootstrap.js';
 	console.log(stringggg);
 
 }();
