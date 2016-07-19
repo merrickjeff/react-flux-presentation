@@ -14,7 +14,7 @@ var config = {
 	paths: {
 		html: 'src/*.html',
 		js: 'src/**/*.js', 
-		jsx: 'src/components/**/*.jsx',
+		jsx: 'src/**/*.jsx',
 		css: [
 			'node_modules/bootstrap/dist/css/bootstrap.min.css',
 			'node_modules/bootstrap/dist/css/bootstrap-theme.min.css'

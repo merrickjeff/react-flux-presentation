@@ -1,17 +1,17 @@
 "use strict";
 
 var React = require('react');
-var ReactDOM = require('react-dom');
-var Router = require('react-router');
-var DefaultRoute = Router.DefaultRoute;
-var Route = Router.Route;
+// var Router = require('react-router').Router;
+var Route = require('react-router').Route;
+// var Link = require('react-router').Link;
+// var browserHistory = require('react-router').browserHistory;
 
 var routes = (
-	<Route name="app" path="/" handler={require('./components/main')}>
-		<DefaultRoute handler={require('./components/homePage')} />
-		<Route name="cookies" handler={require('./components/cookies/cookiesPage')}/>
-		<Route name="contact" handler={require('./components/contact/contactus')}/>
-	</Route>
+	<div>
+		<Route path="/" component={require('./components/main.jsx')}/>
+		<Route path="/cookies" component={require('./components/cookies/cookiesPage.jsx')}/>
+		<Route path="/contact" component={require('./components/contact/contactus.jsx')}/>
+	</div>
 	
 );
 

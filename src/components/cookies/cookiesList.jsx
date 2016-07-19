@@ -12,7 +12,8 @@ var CookieList = React.createClass({
 			return (
 				<tr key={cookie.id}>
 					<td><a href={"/cookie" + cookie.id}>{cookie.id}</a></td>
-					<td>{cookie.flavor} {cookie.size}</td>
+					<td>{cookie.flavor}</td>
+					<td>{cookie.size}</td>
 				</tr>
 				);
 		};
@@ -22,6 +23,7 @@ var CookieList = React.createClass({
 				<table className="table">
 					<thead>
 						<tr>
+							<th>ID</th>
 							<th>Flavor</th>
 							<th>Size</th>
 						</tr>
