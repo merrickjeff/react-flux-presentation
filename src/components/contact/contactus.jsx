@@ -28,9 +28,15 @@ var Contact = React.createClass({
 				<br/>
 				Click below to send us an email:<br/>
 				<a href="mailto:help@me.com?Subject=I%20Need%20Help">Click Here!</a>
-				<h4>Here are all the string props</h4>
+				<h4>Here are all the default string props</h4>
 				<ul>
 					{renderProps(this.props)}
+					<li> 
+						{"Query String asdf = " + this.props.location.query.asdf} 
+					</li>
+					<li> 
+						{"param1 = " + this.props.params.param1} 
+					</li>
 				</ul>
 			</div>
 
