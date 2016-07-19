@@ -3,6 +3,7 @@
 var React = require('react');
 var CookieApi = require('../../api/cookiesApi');
 var CookieList = require('./cookiesList.jsx');
+var Link = require('react-router').Link;
 
 
 var CookiePage = React.createClass({
@@ -22,6 +23,9 @@ var CookiePage = React.createClass({
 		return (
 			<div>
 				<CookieList cookies={this.state.cookies}/>
+				<br/>
+				<Link to="/manageCookies" className="btn btn-info btn-lg">Manage Cookies</Link><br/>
+
 			</div>
 		);
 	}
