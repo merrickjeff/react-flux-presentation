@@ -24,10 +24,7 @@ var Contact = React.createClass({
 		return (
 			<div style={{backgroundColor: "lightblue"}}>
 				<h2>This is the Contact component</h2>
-				<a href="/">index</a>
-				<br/>
-				Click below to send us an email:<br/>
-				<a href="mailto:help@me.com?Subject=I%20Need%20Help">Click Here!</a>
+				Click <a href="mailto:help@me.com?Subject=I%20Need%20Help">HERE</a> to send us an email:<br/>
 				<h4>Here are all the default string props</h4>
 				<ul>
 					{renderProps(this.props)}
