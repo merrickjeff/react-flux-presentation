@@ -14,7 +14,6 @@ var CookiesForm = React.createClass({
 		return (
 			<div>
 				<form>
-					<h3>Enter a new cookie</h3>
 					<TextInput
 						name="flavor"
 						label="Flavor"

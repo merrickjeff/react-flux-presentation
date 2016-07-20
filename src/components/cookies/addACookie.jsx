@@ -11,6 +11,12 @@ var AddACookie = React.createClass({
 	contextTypes: {
 		router: React.PropTypes.object.isRequired
 	},
+	componentWillMount: function(){
+		var cookieId = this.props.params.cookieId;
+		if (cookieId) {
+			this.setState({cookie: CookieApi.getCookieById(cookieId)});
+		}
+	},
 	componentDidMount: function(){
 		var route = this.props.route;
 		var router = this.context.router;

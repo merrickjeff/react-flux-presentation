@@ -10,8 +10,8 @@ var routes = (
 	<div>
 		<Route path="/" component={require('./components/main.jsx')}/>
 		<Route path="/cookies" component={require('./components/cookies/cookiesPage.jsx')}/>
-		<Route path="/cookies/:cookieId" component={require('./components/cookies/cookiesPage.jsx')}/>
 		<Route path="/addACookie" component={require('./components/cookies/addACookie.jsx')}/>
+		<Route path="/addACookie/:cookieId" component={require('./components/cookies/addACookie.jsx')}/>
 		<Route path="/contact" component={require('./components/contact/contactus.jsx')}/>
 		<Route path="/contact/:param1" component={require('./components/contact/contactus.jsx')}/>
 		<Route path="*" component={require('./components/404.jsx')}/>

@@ -1,6 +1,7 @@
 "use strict";
 
 var React = require('react');
+var Link = require('react-router').Link;
 
 var CookieList = React.createClass({
 	propTypes: {
@@ -11,7 +12,9 @@ var CookieList = React.createClass({
 		var createCookieRow = function(cookie){
 			return (
 				<tr key={cookie.id}>
-					<td><a href={"#/cookie/" + cookie.id}>{cookie.id}</a></td>
+					<td>
+						<Link to={"/addACookie/" + cookie.id}>{cookie.id}</Link>
+					</td>
 					<td>{cookie.flavor}</td>
 					<td>{cookie.size}</td>
 				</tr>
