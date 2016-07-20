@@ -1,6 +1,7 @@
 "use strict";
 
 var React = require('react');
+var TextInput = require('../common/textInput.jsx');
 
 var CookiesForm = React.createClass({
 	render: function() {
@@ -9,25 +10,9 @@ var CookiesForm = React.createClass({
 				<h1>Manage Cookies</h1>
 				<form>
 					<h3>Enter a new cookie</h3>
-					<label htmlFor="flavor">Flavor</label>
-					<input type="text" 
-						name="flavor"
-						className="form-control"
-						placeholder="Flavor"
-						ref="flavor"
-						value={this.props.cookie.flavor}
-						onChange={this.props.onChange} />
-						<br/>
+					<TextInput name="Flavor" label="Flavor" placeHolder="Flavor" onChange={this.props.onChange}/>
 
-					<label htmlFor="size">Size</label>
-					<input type="text"
-						name="size"
-						className="form-control"
-						placeholder="Size"
-						ref="size"
-						value={this.props.cookie.size}
-						onChange={this.props.onChange} />
-					<br/>
+					<TextInput name="Size" label="Size" placeHolder="Size" onChange={this.props.onChange}/>
 
 					<input type="submit" value="Save" className="btn btn-info"/>
 				</form>

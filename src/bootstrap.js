@@ -1,6 +1,6 @@
 "use strict";
 
-var $, jQuery;
+// var $, jQuery;
 // $ = jQuery = require('jquery');
 var React = require('react');
 var ReactDOM = require('react-dom');
@@ -11,14 +11,14 @@ var Main = require('./components/main.jsx');
 // var routes = require('./routes.jsx');
 // var browserHistory = require('react-router').browserHistory;
 // var hashHistory = require('react-router').hashHistory;
-var Ap = require('./components/app.jsx');
+var App = require('./components/app.jsx');
 
 
-console.log('This function is wired up to log from bootstrap.js');
-var App = function(){
-	var stringggg = 'Dis function ist wirrd up to log from bootstrap.js';
-	console.log(stringggg);
-}();
+// console.log('This function is wired up to log from bootstrap.js');
+// var App = function(){
+// 	var stringggg = 'Dis function ist wirrd up to log from bootstrap.js';
+// 	console.log(stringggg);
+// }();
 
 
 // ReactDOM.render(<Cookies/>, document.getElementById('app'));
@@ -29,4 +29,4 @@ var App = function(){
 
 // ReactDOM.render(<Router history={hashHistory}>{routes}</Router>, document.getElementById('app'));
 // ReactDOM.render(<Main/>, document.getElementById('app'));
-ReactDOM.render(<Ap/>, document.getElementById('app'));
+ReactDOM.render(<App/>, document.getElementById('app'));
