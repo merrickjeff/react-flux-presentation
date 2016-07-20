@@ -72,6 +72,8 @@ var AddACookie = React.createClass({
 
 		CookieApi.saveCookie(this.state.cookie);
 		toastr.success('Cookie Saved','',{positionClass:'toast-top-center'});
+		this.state.dirty = false;
+		this.setState({dirty: this.state.dirty});
 		this.props.router.push('cookies'); // without the withRouter func, this line doesn't work.
 
 	},
