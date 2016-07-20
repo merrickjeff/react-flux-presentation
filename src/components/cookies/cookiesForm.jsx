@@ -15,7 +15,8 @@ var CookiesForm = React.createClass({
 						className="form-control"
 						placeholder="Flavor"
 						ref="flavor"
-						value="" />
+						value={this.props.cookie.flavor}
+						onChange={this.props.onChange} />
 						<br/>
 
 					<label htmlFor="size">Size</label>
@@ -24,7 +25,8 @@ var CookiesForm = React.createClass({
 						className="form-control"
 						placeholder="Size"
 						ref="size"
-						value=""/>
+						value={this.props.cookie.size}
+						onChange={this.props.onChange} />
 					<br/>
 
 					<input type="submit" value="Save" className="btn btn-info"/>
