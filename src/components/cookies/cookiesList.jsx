@@ -19,7 +19,7 @@ var CookieList = React.createClass({
 		};
 		return (
 			<div style={{backgroundColor: "lightcyan"}}>
-				<h2>Here are the cookies we know about</h2>
+				<h2>Cookies List</h2>
 				<table className="table">
 					<thead>
 						<tr>

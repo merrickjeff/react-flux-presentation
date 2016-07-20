@@ -24,7 +24,7 @@ var CookiePage = React.createClass({
 			<div>
 				<CookieList cookies={this.state.cookies}/>
 				<br/>
-				<Link to="/manageCookies" className="btn btn-info btn-lg">Manage Cookies</Link><br/>
+				<Link to="/addACookie" className="btn btn-info btn-lg">Add A Cookie</Link><br/>
 
 			</div>
 		);

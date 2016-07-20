@@ -4,14 +4,16 @@ var React = require('react');
 var CookiesForm = require('./cookiesForm.jsx');
 var CookieApi = require('../../api/cookiesApi');
 var withRouter = require('react-router').withRouter;
+var toastr = require('toastr');
 
-var ManageCookies = React.createClass({
+var AddACookie = React.createClass({
 	getInitialState: function() {
 	    return {
 	    	cookie: {
 	    		flavor: '',
 				  size: ''
-				}
+				},
+				errors: {}
 	    };
 	},
 	setCookieState: function(event){
@@ -21,9 +23,32 @@ var ManageCookies = React.createClass({
 		this.state.cookie[field] = value;
 		return this.setState({cookie: this.state.cookie});
 	},
+	cookieFormIsValid: function(){
+		var formIsValid = true;
+		this.state.errors = {};
+
+		if (this.state.cookie.flavor.length < 3){
+			this.state.errors.flavor = 'Flavor must be at least 3 characters';
+			formIsValid = false;
+		}
+
+		if (this.state.cookie.size.length < 3){
+			this.state.errors.size = 'Size must be at least 3 characters';
+			formIsValid = false;
+		}
+
+		this.setState({errors: this.state.errors});
+		return formIsValid;
+	},	
 	saveCookie: function(event){
 		event.preventDefault();
+
+		if (!this.cookieFormIsValid()) {
+			return;
+		}
+
 		CookieApi.saveCookie(this.state.cookie);
+		toastr.success('Cookie Saved','',{positionClass:'toast-top-center'});
 		this.props.router.push('cookies');
 
 	},
@@ -33,7 +58,8 @@ var ManageCookies = React.createClass({
 				<CookiesForm
 				  cookie={this.state.cookie}
 				  onChange={this.setCookieState}
-				  saveCookie={this.saveCookie}/>
+				  saveCookie={this.saveCookie}
+				  errors={this.state.errors}/>
 			</div>
 		);
 	}
@@ -41,4 +67,4 @@ var ManageCookies = React.createClass({
 });
 
 
-module.exports = withRouter(ManageCookies);
+module.exports = withRouter(AddACookie);

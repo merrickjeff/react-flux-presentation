@@ -12,6 +12,7 @@ packages
 nuget
 bundle
 bundle.js
+bundle.css
 .bundle
 *.ncrunchsolution
 logs
