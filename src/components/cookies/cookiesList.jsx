@@ -11,7 +11,7 @@ var CookieList = React.createClass({
 		var createCookieRow = function(cookie){
 			return (
 				<tr key={cookie.id}>
-					<td><a href={"/cookie" + cookie.id}>{cookie.id}</a></td>
+					<td><a href={"#/cookie/" + cookie.id}>{cookie.id}</a></td>
 					<td>{cookie.flavor}</td>
 					<td>{cookie.size}</td>
 				</tr>

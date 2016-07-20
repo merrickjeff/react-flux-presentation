@@ -10,11 +10,19 @@ var CookiesForm = React.createClass({
 				<h1>Manage Cookies</h1>
 				<form>
 					<h3>Enter a new cookie</h3>
-					<TextInput name="Flavor" label="Flavor" placeHolder="Flavor" onChange={this.props.onChange}/>
+					<TextInput
+						name="flavor"
+						label="Flavor"
+						value={this.props.cookie.flavor}
+						onChange={this.props.onChange}/>
 
-					<TextInput name="Size" label="Size" placeHolder="Size" onChange={this.props.onChange}/>
+					<TextInput
+						name="size"
+						label="Size"
+						value={this.props.cookie.size}
+						onChange={this.props.onChange}/>
 
-					<input type="submit" value="Save" className="btn btn-info"/>
+					<input type="submit" value="Save" onClick={this.props.saveCookie} className="btn btn-info"/>
 				</form>
 
 			</div>

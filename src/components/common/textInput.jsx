@@ -3,6 +3,15 @@
 var React = require('react');
 
 var TextInput = React.createClass({
+	propTypes: {
+		name: React.PropTypes.string.isRequired,
+		label: React.PropTypes.string.isRequired,
+		onChange: React.PropTypes.func.isRequired,
+		placeHolder: React.PropTypes.string,
+		value: React.PropTypes.string,
+		error: React.PropTypes.string,
+
+	},
 	render: function() {
 		var wrapperClass = 'form-group';
 		if (this.props.error && this.props.error.length > 0) {
