@@ -3,6 +3,7 @@
 var React = require('react');
 var CookiesForm = require('./cookiesForm.jsx');
 var CookieApi = require('../../api/cookiesApi');
+var withRouter = require('react-router').withRouter;
 
 var ManageCookies = React.createClass({
 	getInitialState: function() {
@@ -23,6 +24,8 @@ var ManageCookies = React.createClass({
 	saveCookie: function(event){
 		event.preventDefault();
 		CookieApi.saveCookie(this.state.cookie);
+		this.props.router.push('cookies');
+
 	},
 	render: function() {
 		return (
@@ -38,4 +41,4 @@ var ManageCookies = React.createClass({
 });
 
 
-module.exports = ManageCookies;
+module.exports = withRouter(ManageCookies);
