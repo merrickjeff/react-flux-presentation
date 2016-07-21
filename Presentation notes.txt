@@ -119,7 +119,7 @@ As applications start to get really big, passing data around to where it's neede
 This contrasts with two-way binding you may be used to with frameworks such as Angular, Ember or Knockout.js
 With two-way data binding, data from your viewmodel is sent to your view. Changes to the data in the view are reflected in the viewmodel immediately.
 
-With Flux, when the user modifies data in the view, an Action occurs. The dispatcher then notifies any stores that have registered with the dispatcher and registered that they care about that data (via registering that they want to be notified when a given action occurs). The stores are then updated. When the stores are updated, the user then sees the updated UI.
+With Flux, when the user modifies data in the view, an Action occurs. The dispatcher then notifies any stores that have registered with the dispatcher. The individual stores are in charge of responding to the actions they care about, and ignoring actions they don't, via the function passed to the Dispatcher's register() method. The stores then update themselves via the Action's data and optionally, emit those changes so dependant react components can re-render. Finally, the user sees the updated UI.
 
 This is called uni-directional because the application state is only updated as the result of an action. The view can't directly update the application state directly.
 
@@ -188,6 +188,7 @@ We also need to register our store with our Dispatcher so we can receive actions
 
 In order to implement the store data access rather than the fake cookie API, we need to change the addACookie page to add a reference to the Actions and the Store. The API function getCookieById is exactly the same as the store function, so that's an easy change. The Save Cookie is similar but we have to call CookieActions.createCookie. It might seem like we could just call CookieStore.saveCookie or some such thing but we have to remember, when using Flux, a component isn't allowed to update store state. It has to do any updating via actions. 
 
+Show the cookiesPage _onChange and the add and remove change listener functions.
 
 [NOTE - steal the diagram from here: http://facebook.github.io/flux/docs/actions-and-the-dispatcher.html]
 

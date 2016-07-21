@@ -2,16 +2,26 @@
 
 var React = require('react');
 var Link = require('react-router').Link;
+var CookieActions = require('../../actions/cookieActions.js');
+var toastr = require('toastr');
 
 var CookieList = React.createClass({
 	propTypes: {
 		cookies: React.PropTypes.array.isRequired
+	},
+
+	deleteCookie: function(id, event) {
+		event.preventDefault();
+		CookieActions.deleteCookie(id);
+		toastr.success('Cookie Deleted','',{positionClass:'toast-top-center'});
+
 	},
 	
 	render: function(){
 		var createCookieRow = function(cookie){
 			return (
 				<tr key={cookie.id}>
+				<td><a href="#" onClick={this.deleteCookie.bind(this, cookie.id)}>Delete</a></td>
 					<td>
 						<Link to={"/addACookie/" + cookie.id}>{cookie.id}</Link>
 					</td>
@@ -26,6 +36,7 @@ var CookieList = React.createClass({
 				<table className="table">
 					<thead>
 						<tr>
+							<th></th>
 							<th>ID</th>
 							<th>Flavor</th>
 							<th>Size</th>

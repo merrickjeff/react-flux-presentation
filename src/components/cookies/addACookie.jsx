@@ -70,9 +70,13 @@ var AddACookie = React.createClass({
 		if (!this.cookieFormIsValid()) {
 			return;
 		}
+		if (this.state.cookie.Id) {
+			CookieActions.updateCookie(this.state.cookie);
+		}
+		else {
+			CookieActions.createCookie(this.state.cookie);
+		}
 
-		// CookieStore.saveCookie(this.state.cookie); // This won't work anymore
-		CookieActions.createCookie(this.state.cookie);
 		toastr.success('Cookie Saved','',{positionClass:'toast-top-center'});
 		this.state.dirty = false;
 		this.setState({dirty: this.state.dirty});

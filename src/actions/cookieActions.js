@@ -26,7 +26,7 @@ var CookieActions = {
         CookiesApi.deleteCookie(id);
 
         Dispatcher.dispatch({
-            actionType: ActionTypes.ActionTypes.DELETE_COOKIE,
+            actionType: ActionTypes.DELETE_COOKIE,
             id: id
         });
     }

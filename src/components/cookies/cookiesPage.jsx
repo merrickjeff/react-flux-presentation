@@ -1,7 +1,8 @@
 "use strict";
 
 var React = require('react');
-var CookiesApi = require('../../api/cookiesApi');
+// var CookiesApi = require('../../api/cookiesApi');
+var CookieStore = require('../../stores/cookieStore.js');
 var CookieList = require('./cookiesList.jsx');
 var Link = require('react-router').Link;
 
@@ -9,14 +10,20 @@ var Link = require('react-router').Link;
 var CookiePage = React.createClass({
 	getInitialState: function(){
 		return {
-			cookies: []
+			cookies: CookieStore.getAllCookies()
 		};
 	},
 
-	componentDidMount: function() {
-		if (this.isMounted()){
-			this.setState({cookies: CookiesApi.getAllCookies()});
-		}
+	componentWillMount: function() {
+		CookieStore.addChangeListener(this._onChange);
+	},
+
+	componentWillUnmount: function() {
+		CookieStore.removeChangeListener(this._onChange);
+	},
+
+	_onChange: function() {
+		this.setState({cookies: CookieStore.getAllCookies()});
 	},
 
 	render: function() {
