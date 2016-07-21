@@ -23,18 +23,21 @@ var Contact = React.createClass({
 		};
 		return (
 			<div style={{backgroundColor: "lightblue"}}>
-				<h2>This is the Contact component</h2>
+				<h2>Contact Us</h2><br/>
 				Click <a href="mailto:help@me.com?Subject=I%20Need%20Help">HERE</a> to send us an email:<br/>
-				<h4>Here are all the default string props</h4>
-				<ul>
-					{renderProps(this.props)}
-					<li> 
-						{"Query String asdf = " + this.props.location.query.asdf} 
-					</li>
-					<li> 
-						{"param1 = " + this.props.params.param1} 
-					</li>
-				</ul>
+				<br/><hr/>
+				<div className="small">
+					<h6>Debug info</h6>
+					<ul>
+						{renderProps(this.props)}
+						<li> 
+							{"Query String asdf = " + this.props.location.query.asdf} 
+						</li>
+						<li> 
+							{"param1 = " + this.props.params.param1} 
+						</li>
+					</ul>
+				</div>
 			</div>
 
 			);

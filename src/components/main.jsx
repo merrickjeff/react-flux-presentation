@@ -7,7 +7,7 @@ var Main = React.createClass({
 	render: function(){
 		return (
 			<div>
-				<h2>Please choose a link from the navigation menu above</h2>
+				<h3>Please choose a link from the navigation menu above</h3>
 				{
 					// <a href="#/cookies">Cookies page</a><br/>
 					// <a href="#/contact">Contact Us page</a><br/>
