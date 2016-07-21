@@ -5,7 +5,6 @@ var connect = require('gulp-connect'); // Runs a local dev server, supports live
 var open = require('gulp-open'); // Open a URL in a web browser
 var browserify = require('browserify'); // Bundles JS
 var sass = require('gulp-sass');
-var reactify = require('reactify'); // Transforms React JSX to JS
 var source = require('vinyl-source-stream'); // use conventional text streams with Gulp
 var concat = require('gulp-concat'); // Concatenates files
 
