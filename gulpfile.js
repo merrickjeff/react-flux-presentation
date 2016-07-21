@@ -4,6 +4,7 @@ var gulp = require('gulp');
 var connect = require('gulp-connect'); // Runs a local dev server, supports live reload
 var open = require('gulp-open'); // Open a URL in a web browser
 var browserify = require('browserify'); // Bundles JS
+var sass = require('gulp-sass');
 var reactify = require('reactify'); // Transforms React JSX to JS
 var source = require('vinyl-source-stream'); // use conventional text streams with Gulp
 var concat = require('gulp-concat'); // Concatenates files
@@ -44,8 +45,12 @@ gulp.task('html', function(){
 });
 
 gulp.task('js', function(){
-	browserify(config.paths.mainJs)
-		.transform(reactify).bundle()
+		browserify({
+	    extensions: ['.js', '.jsx'],
+      entries: config.paths.mainJs,
+      debug: true
+    })
+		.transform('babelify', {presets: ['es2015', 'react']}).bundle()
 		.on('error', console.error.bind(console))
 		.pipe(source('bundle.js'))
 		.pipe(gulp.dest(config.paths.dist + '/scripts'))
@@ -54,14 +59,17 @@ gulp.task('js', function(){
 
 gulp.task('css', function(){
 	gulp.src(config.paths.css)
+		.pipe(sass().on('error', sass.logError))
 		.pipe(concat('bundle.css'))
-		.pipe(gulp.dest(config.paths.dist + '/css'));
+		.pipe(gulp.dest(config.paths.dist + '/css'))
+		.pipe(connect.reload());
 });
 
 gulp.task('watch', function(){
 	gulp.watch(config.paths.html, ['html']);
 	gulp.watch(config.paths.js, ['js']);
 	gulp.watch(config.paths.jsx, ['js']);
+	gulp.watch(config.paths.css, ['css']);
 });
 
 gulp.task('default', ['html', 'js', 'css', 'open', 'watch']);
