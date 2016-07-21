@@ -1,0 +1,82 @@
+React and Flux / Redux
+- Start by definiing React
+- How do you begin thinking in React?
+	https://facebook.github.io/react/docs/thinking-in-react.html
+Start by mocking your UI. Just draw what it should look like. 
+Then draw boxes around every component and subcomponent and give them names. 
+How do you decide if something should be its own component? Think of the single responsibilty principle. If a section of your UI is doing just 1 thing, make it its own commponent. 
+
+
+Flux is a name for Facebook's implementation of a pattern known as flux. One way data flow. Avoids complex interactions that can occur in traditional MVC.
+
+
+MVC
+Is React the V in MVC? 
+- It can be the V and the C.
+	-	A controller view can be like the controller in ASP.net MVC.
+		It can handle the data concerns while having dumb child components.
+
+		
+Notice in our react component, we're using the old (es5) syntax. There is a new way to create a react component using ES6 which uses classes and extending the react component class. I'm not using that here just for simplicity. If I had a little more prep time, I would have got babel working as a gulp task to transpile my es6 to es5. 
+
+You can see it's pretty straightforward to create a react component, and wire it up to a dom element. 
+
+I've created a mock web api just so we can demo how React components might interact with an API.
+
+Since we have this mock api, we can interact with it by creating a new component that displays the data.
+
+In order to separate data access from your components. You can create a "Controller View" that handles data concerns.
+
+A component can not mutate it's properties. 
+
+A controller view is simply a react component that has child components. The controller controls data flows for all child components. It sets the props on the child components. It will also interact with the flux stores which we'll talk about in a minute.
+
+git checkout v1 - check's out right before implementing controller views.
+
+Mixins allow you to share code across react components. 
+
+Since react is narrowly focused on being a view engine, it has no opinion on how routing should work. 
+
+React router is used at Facebook. React router is client side routing. Because of this, moving between views doesn't require a get from the server. This makes the application much more responsive. 
+
+React components support mixins. This allows you to easily reuse code in different components. 
+
+When working with forms, having a controller view makes a lot of sense. The controller has all the data but very little of the markup. 
+
+When you create a form in a React component, if you ever want to interact with it in the future, you need a way to reference it. That's what the ref attribute is for. React will guarantee that the object you refer to by ref is the current version of that object. 
+
+If you had this:
+<input ref="myInput" />
+
+You could access it directly by calling React.findDOMNode(this.refs.myInput).
+
+Regarding form fields. Without a "change handler", text entered is lost. This is very different from other frameworks where two way binding exists. Here, React is in charge of the form field and by default, disallows any change to the value. Having to explicitly create a change handler may seem like extra unnecessary work but there are benefits to creating your own change handler. 
+
+Because we have a controller view (or controller component), state for the form will be handled in there. 
+
+State vs Props
+Most of the time your component will simply take in props and render itself. If you want to respond to user input, or other things like a timer, response from a server, etc - you need to use state.
+
+Facebook says to "try to keep as many of your components as possible stateless. "
+
+State in the controller view is passed down as props to the dumb components. 
+
+onChange seems like a lot of work. But there are ways to make this easier. React and flux prefer clarity and scalability over convention and minimizing typing. I FOR ONE, LOVE THIS. Too much convention makes code hard to read. 
+
+At this point sha 74d071c - look at the cookies form. There is a lot of repetition in here. One thing we could do to avoid repeating ourselves a lot is to create a new component for this type of input. 
+
+Here, I'm going to add notifications. The npm package I'm going to use for this is called toastr. 
+
+
+Any time you set state, nothing happens until you call this.setState(). That causes react to merge the state and update the UI as needed. 
+
+Form input fields in react are a bit tricky. If you set a value on an input, React takes control of it. If you don't create a change handler, the user will have no way of entering data. 
+
+Form Hydration via URL.
+
+As of sha d1037e4 - my controller component (Cookies Page) is doing the data call. This technique can start to cause maintainability issues as  your application grows. Next we're going to implement uni-directional data flow using Flux. 
+
+Browserify looks at the "entry file" and any require calls to determine what js to bundle all together. It follows all require calls and pulls all dependencies together. Without that, you'd have to reference all your js and jsx files individually and that would be gross. 
+
+Flux
+Can you "use" flux? Flux is the name for a pattern. It is also a framework that implements that pattern. 
