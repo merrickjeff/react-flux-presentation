@@ -2,7 +2,8 @@
 
 var React = require('react');
 var CookiesForm = require('./cookiesForm.jsx');
-var CookieApi = require('../../api/cookiesApi');
+var CookieActions = require('../../actions/cookieActions.js');
+var CookieStore = require('../../stores/cookieStore.js');
 var withRouter = require('react-router').withRouter;
 var Lifecycle = require('react').Lifecycle;
 var toastr = require('toastr');
@@ -14,7 +15,7 @@ var AddACookie = React.createClass({
 	componentWillMount: function(){
 		var cookieId = this.props.params.cookieId;
 		if (cookieId) {
-			this.setState({cookie: CookieApi.getCookieById(cookieId)});
+			this.setState({cookie: CookieStore.getCookieById(cookieId)});
 		}
 	},
 	componentDidMount: function(){
@@ -70,7 +71,8 @@ var AddACookie = React.createClass({
 			return;
 		}
 
-		CookieApi.saveCookie(this.state.cookie);
+		// CookieStore.saveCookie(this.state.cookie); // This won't work anymore
+		CookieActions.createCookie(this.state.cookie);
 		toastr.success('Cookie Saved','',{positionClass:'toast-top-center'});
 		this.state.dirty = false;
 		this.setState({dirty: this.state.dirty});

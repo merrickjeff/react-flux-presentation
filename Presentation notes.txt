@@ -1,10 +1,12 @@
 React and Flux / Redux
-- Start by definiing React
+
+Some of my code is based on a course by Cory House. 
+- Start by defining React
 - How do you begin thinking in React?
 	https://facebook.github.io/react/docs/thinking-in-react.html
 Start by mocking your UI. Just draw what it should look like. 
 Then draw boxes around every component and subcomponent and give them names. 
-How do you decide if something should be its own component? Think of the single responsibilty principle. If a section of your UI is doing just 1 thing, make it its own commponent. 
+How do you decide if something should be its own component? Think of the single responsibility principle. If a section of your UI is doing just 1 thing, make it its own component. 
 
 
 Flux is a name for Facebook's implementation of a pattern known as flux. One way data flow. Avoids complex interactions that can occur in traditional MVC.
@@ -80,3 +82,134 @@ Browserify looks at the "entry file" and any require calls to determine what js 
 
 Flux
 Can you "use" flux? Flux is the name for a pattern. It is also a framework that implements that pattern. 
+There are a lot of implementations of this pattern with small differences. 
+
+The main gist of Flux is:
+ - All updates to application state are handled through a central dispatcher. From there, data is dispatched to data stores thoughout your application. To implement this, you need the Flux Dispatcher and a javascript event library. 
+ 
+ Why is it called Flux? Because it deals with actions and data changes. Facebook has their own implementation of Flux. It's simply called Flux by Facebook.
+
+ Here's a fairly exhaustive list of Flux implementations:
+ https://github.com/kriasoft/react-starter-kit/issues/22
+ 
+ Flux by Facebook
+ Relay by Facebook
+ Fluxible by Yahoo
+ Reflux by Mikael Brassman
+ Alt by Josh Perez
+ Flummox (deprecated) by Andrew Clark
+ Marty.js by James Hollingworth
+ McFly by Ken Wheeler
+ Lux
+ Material Flux
+ Redux
+ Redux + Flambeau
+ Nuclear.js
+ Fluxette
+ Fluxxor by Brandon Tilley
+ Freezer
+ Fluxury
+ fynx by Alan Plum
+ DeLorean.js by Fatih Kadir Akın
+ fluxify by Javier Márquez
+ 
+As applications start to get really big, passing data around to where it's needed can start to get complicated. Facebook decided to solve this problem by using uni-directional data flow.
+[Steal diagram from this video: https://www.youtube.com/watch?list=PLb0IAmt7-GS188xDYE-u1ShQmFFGbrk0v&time_continue=660&v=nYkdrAPrdcw]
+
+This contrasts with two-way binding you may be used to with frameworks such as Angular, Ember or Knockout.js
+With two-way data binding, data from your viewmodel is sent to your view. Changes to the data in the view are reflected in the viewmodel immediately.
+
+With Flux, when the user modifies data in the view, an Action occurs. The dispatcher then notifies any stores that have registered with the dispatcher and registered that they care about that data (via registering that they want to be notified when a given action occurs). The stores are then updated. When the stores are updated, the user then sees the updated UI.
+
+This is called uni-directional because the application state is only updated as the result of an action. The view can't directly update the application state directly.
+
+Two way data binding is simpler conceptually and requires less typing but uni-directional data flows have advantages when it comes to testability, code comprehension and predictibility. 
+
+To understand Flux, you just need to understand three concepts.
+	-	Actions
+	-	Dispatchers
+	-	Stores
+
+-	Actions happen when users modify state in your react components. That could happen by the user typing text into a field, submitting a form, clicking a button. 
+-	Actions are handled by a centralized dispatcher. The Dispatcher is a registry. The Dispatcher has a list of callbacks. It uses those callbacks to notify stores of state changes. 
+-	When application state in the stores is updated, react re-renders the components (or views) to present the new data. 
+
+
+More about Actions
+An action could be something like "Save Changes" or "Delete Record". There are methods in the dispatcher called Action Creators. You can group your Action Creators in files to organize them better. They define any action that is possible in the application. Actions are usually either triggered in the View, as a response to user input or other activity. It is also possible for the server to initiate an action. An action can be triggered during a get handler or any other activity happening on the server. Actions often will make AJAX calls [TODO - MORE DETAIL NEEDED]
+
+Actions have a payload of data. This is the format of the payload:
+
+Payload has a "type" and a "data" attribute. Data contains the state being updated.
+EXAMPLE;
+{
+	type: MY_ACTION
+	data: {
+		dispatchApplication: 12345
+	}
+}
+
+More about Dispatchers
+There is only 1 dispatcher per application. 
+What does the dispatcher dispatch? Actions. Along with the payloads associated. Stores registered with the dispatcher are notified when data changes. 
+
+More about Stores:
+A store holds application state, other logic, and data retrieval code. A store isn't exactly the same as a model. More like, it contains models. You can have more than one store. This lets you group related data in different stores to help keep things organized. The way stores and the dispatcher communicate is by using Node's EventEmitter. This allows the store to both listen to and broadcast events. 
+
+Here are the main parts of a store:
+1 - You extend EventEmitter
+2 - You have to create addChangeListener and removeChangeListener functions. 
+3 - You have to create a function called emitChange.
+ 
+/quote
+As an application grows, the dispatcher becomes more vital, as it can be used to manage dependencies between the stores by invoking the registered callbacks in a specific order. Stores can declaratively wait for other stores to finish updating, and then update themselves accordingly. -- Flux documentation
+
+When you have dependencies between stores, you can configure your actions to dispatch to stores in a specific order and wait for processing to complete before continuing to the next one. 
+
+We touched on React Controller views or components before. Remember, the Controller was the component that had the application state and it handled getting and setting of data. It is composed of child components that are passed state via props and any changes bubble up to the controller to be handled. Which react components should interact with stores? It should be your Controller View (or Controller React Component). The controller then passes the updated data to it's child components.
+It's normally recommended to have a single Controller View per page. Or, if your page is really complicated, it might make sense to have a controller view per portion of the page. This is already how my project is set up. So, it should be easy to implement the Flux architecture. 
+
+The Flux API is actually pretty simple when you look at what makes it up. There are only five functions. 
+-	register()
+-	unregister()
+-	waitFor() - Allows you to run callbacks in a specific order. You can specify the callbacks that should be completed before you continue with your callback. 
+-	dispatch() - actually dispatches the action payload to the registered callbacks.
+-	isDispatching() - returns true when the dispatcher is busy dispatching. 
+
+
+Checkout after flux
+
+Look at the dispatcher.
+
+Look at the Store. Because our application is pretty small, a single Store should be sufficent. 
+In the authorStore, we're basically extending the EventEmitter class. I can use the es2015 method, assign, because I have Babel transpiling. In here, we're basically leveraging the EventEmitter to notify the components that have been registered that a change has taken place.
+
+We also need to register our store with our Dispatcher so we can receive actions. The function we pass to register is going to be called for EVERY ACTION THE DISPATCHER RECEIVES. This means, we need some logic to respond correctly to the different action types. The only thing that's exported from authorStore is the AuthorStore object. That's the API for the store. Any other properties are not accessible from outside the store.    
+
+In order to implement the store data access rather than the fake cookie API, we need to change the addACookie page to add a reference to the Actions and the Store. The API function getCookieById is exactly the same as the store function, so that's an easy change. The Save Cookie is similar but we have to call CookieActions.createCookie. It might seem like we could just call CookieStore.saveCookie or some such thing but we have to remember, when using Flux, a component isn't allowed to update store state. It has to do any updating via actions. 
+
+
+[NOTE - steal the diagram from here: http://facebook.github.io/flux/docs/actions-and-the-dispatcher.html]
+
+>>>>>>>>>>>>>>>>>>>[EDIT FOR LENGTH]
+The Dispatcher 
+The dispatcher is a singleton, and operates as the central hub of data flow in a Flux application. It is essentially a registry of callbacks, and can invoke these callbacks in order. Each store registers a callback with the dispatcher. When new data comes into the dispatcher, it then uses these callbacks to propagate that data to all of the stores. The process of invoking the callbacks is initiated through the dispatch() method, which takes a data payload object as its sole argument. This payload is typically synonymous with an action.
+
+Data flow in Flux with data originating from user interactions [diagram]
+Actions and Action Creators 
+When new data enters the system, whether through a person interacting with the application or through a web api call, that data is packaged into an action — an object literal containing the new fields of data and a specific action type. We often create a library of helper methods called action creators that not only create the action object, but also pass the action to the dispatcher.
+
+Different actions are identified by a type attribute. When all of the stores receive the action, they typically use this attribute to determine if and how they should respond to it. In a Flux application, both stores and views control themselves; they are not acted upon by external objects. Actions flow into the stores through the callbacks they define and register, not through setter methods.
+
+Letting the stores update themselves eliminates many entanglements typically found in MVC applications, where cascading updates between models can lead to unstable state and make accurate testing very difficult. The objects within a Flux application are highly decoupled, and adhere very strongly to the Law of Demeter, the principle that each object within a system should know as little as possible about the other objects in the system. This results in software that is more maintainable, adaptable, testable, and easier for new engineering team members to understand.
+
+Why We Need a Dispatcher 
+As an application grows, dependencies across different stores are a near certainty. Store A will inevitably need Store B to update itself first, so that Store A can know how to update itself. We need the dispatcher to be able to invoke the callback for Store B, and finish that callback, before moving forward with Store A. To declaratively assert this dependency, a store needs to be able to say to the dispatcher, "I need to wait for Store B to finish processing this action." The dispatcher provides this functionality through its waitFor() method.
+
+The dispatch() method provides a simple, synchronous iteration through the callbacks, invoking each in turn. When waitFor() is encountered within one of the callbacks, execution of that callback stops and waitFor() provides us with a new iteration cycle over the dependencies. After the entire set of dependencies have been fulfilled, the original callback then continues to execute.
+
+Further, the waitFor() method may be used in different ways for different actions, within the same store's callback. In one case, Store A might need to wait for Store B. But in another case, it might need to wait for Store C. Using waitFor() within the code block that is specific to an action allows us to have fine-grained control of these dependencies.
+
+Problems arise, however, if we have circular dependencies. That is, if Store A needs to wait for Store B, and Store B needs to wait for Store A, we could wind up in an endless loop. The dispatcher now available in the Flux repo protects against this by throwing an informative error to alert the developer that this problem has occurred. The developer can then create a third store and resolve the circular dependency.
+>>>>>>>>>>>>>>>>>>>[END EDIT FOR LENGTH]
+
